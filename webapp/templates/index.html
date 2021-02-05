@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Блог
+{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-8">
+        <h2>Новости</h2>
+        {% for news in news_list %}
+        <h3><a href="{{ news.url }}"> {{ news.title }}</a></h3>
+        <p>{{ news.published }}</p>
+        <hr/>
+        {% endfor %}
+    </div>
+    <div class="col-4">
+        <h2>
+            {% if weather %}
+            Погода: {{weather.temp_C}}, ощущается как: {{weather.FeelsLikeC}}
+            {% else %}
+            Сервер погоды временно недоступен
+            {% endif %}
+        </h2>
+    </div>
+</div>
+{% endblock %}
