@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ page_title }}
+{% endblock %}
+
+{% block body %}
+
+<div class="row">
+    <div class="offset-1 col-9 news-content">
+            <h4>{{page_title}}</h4>
+            {{ news.text|safe }}
+    </div>
+</div>
+
+{% endblock %}
