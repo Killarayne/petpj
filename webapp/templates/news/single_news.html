@@ -10,6 +10,34 @@
     <div class="offset-1 col-9 news-content">
             <h4>{{page_title}}</h4>
             {{ news.text|safe }}
+        {% if news.comments %}
+        <h5>Комментарии</h5>
+        {% for comment in news.comments %}
+        <div class="card">
+            <div class="card-body">
+                <p class="card-text">{{ comment.text }}</p>
+                <p class="card-text">
+                    <small>Опубликовано : {{comment.created.strftime('%d.%m.%Y')}} | Автор : {{comment.user.username}}</small>
+                </p>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% if current_user.is_authenticated %}
+        <form action="{{ url_for('news.add_comment') }}" method="post">
+                {{ comment_form.hidden_tag() }}
+                <div class="form-group">
+                    {{ comment_form.comment_text.label }}
+                    {{ comment_form.comment_text() }}<br>
+                </div>
+                <br/>
+                {{ comment_form.submit() }}
+            </form>
+        {% else %}
+            <p>
+                <a href="{{ url_for('user.login') }}">Авторизируйтесь</a> чтобы добавить комментарий
+            </p>
+        {% endif %}
     </div>
 </div>
 

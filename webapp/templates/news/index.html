@@ -10,18 +10,10 @@
     <div class="col-1"></div>
     <div class="col-6">
         <h2>{{ page_title }}</h2>
-        {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                <div class="alert alert-warning" role="alert">
-                    {% for message in messages %}
-                    {{message}}
-                    {% endfor %}
-                </div>
-                {% endif %}
-            {% endwith %}
+        {% include('messages.html') %}
         {% for news in news_list %}
         <h5><a href="{{ url_for('news.single_news', news_id=news.id) }}">{{ news.title }}</a></h5>
-        <p>{{ news.published.strftime('%d.%m.%y') }}</p>
+        <p>{{ news.published.strftime('%d.%m.%y') }} | Коментрии: {{ news.comments_count()}}</p>
         <hr/>
         {% endfor %}
     </div>
